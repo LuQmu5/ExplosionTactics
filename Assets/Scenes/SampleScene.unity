@@ -740,7 +740,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 5
   m_Acceleration: 1000
   avoidancePriority: 50
   m_AngularSpeed: 1000
@@ -767,6 +767,7 @@ MonoBehaviour:
   _view: {fileID: 2292327507501023606}
   _agent: {fileID: 1044940600}
   _movementSpeed: 5
+  _clickPointMarkerPrefab: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
 --- !u!4 &1748877439889223826
 Transform:
   m_ObjectHideFlags: 0
@@ -4868,6 +4869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4d28cf85db41d40b58020c05dc4090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _player: {fileID: 1044940601}
   _animator: {fileID: 2292327507501023605}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

@@ -5,6 +5,7 @@ public class PlayerView : MonoBehaviour
 {
     private const string Velocity = nameof(Velocity);
 
+    [SerializeField] private PlayerController _player;
     [SerializeField] private Animator _animator;
 
     private void Awake()
@@ -12,8 +13,8 @@ public class PlayerView : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void SetVelocityParam(float value)
+    private void Update()
     {
-        _animator.SetFloat(Velocity, value);
+        _animator.SetFloat(Velocity, _player.Velocity.magnitude);
     }
 }

@@ -8,6 +8,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerView _view;
     [SerializeField] private NavMeshAgent _agent;
     [SerializeField] private float _movementSpeed = 5;
+    [SerializeField] private ClickPointMarker _clickPointMarkerPrefab;
+
+    public Vector3 Velocity => _agent.velocity;
+
+    private ClickPointMarker _activeMarker;
 
     private void Start()
     {
@@ -23,9 +28,27 @@ public class PlayerController : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 _agent.SetDestination(hit.point);
+                CreateMarker(hit.point);
             }
         }
 
-        _view.SetVelocityParam(_agent.velocity.magnitude);
+        if (_activeMarker != null)
+            CheckMarkerForDelete();
+    }
+
+    private void CheckMarkerForDelete()
+    {
+        if (Vector3.Distance(transform.position, _activeMarker.transform.position) <= _agent.radius)
+        {
+            Destroy(_activeMarker.gameObject);
+        }
+    }
+
+    private void CreateMarker(Vector3 at)
+    {
+        if (_activeMarker != null)
+            Destroy(_activeMarker.gameObject);
+
+        _activeMarker = Instantiate(_clickPointMarkerPrefab, at, Quaternion.identity);
     }
 }
