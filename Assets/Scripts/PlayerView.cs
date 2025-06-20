@@ -17,4 +17,10 @@ public class PlayerView : MonoBehaviour
     {
         _animator.SetFloat(Velocity, _player.Velocity.magnitude);
     }
+
+    public void PlayStandUp()
+    {
+        _animator.Play("StandUp"); // убедись, что у тебя есть такая анимация
+    }
+
 }
