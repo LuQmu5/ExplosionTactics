@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class RagdollController : MonoBehaviour
 {
@@ -7,9 +8,13 @@ public class RagdollController : MonoBehaviour
 
     private Rigidbody[] _rigidbodies;
 
+    private Dictionary<Transform, Vector3> _baseLocalRotations;
+    private Dictionary<Transform, Vector3> _baseLocalPositions;
+
     private void Awake()
     {
         _rigidbodies = _root.GetComponentsInChildren<Rigidbody>();
+        SetBaseTransforms();
 
         Deactivate();
     }
@@ -29,8 +34,28 @@ public class RagdollController : MonoBehaviour
         foreach (Rigidbody rb in _rigidbodies)
         {
             rb.isKinematic = true;
+
+            ResetBaseTransformFor(rb);
         }
 
         _animator.enabled = true;
+    }
+
+    private void ResetBaseTransformFor(Rigidbody rb)
+    {
+        rb.transform.localEulerAngles = _baseLocalRotations[rb.transform];
+        rb.transform.localPosition = _baseLocalPositions[rb.transform];
+    }
+
+    private void SetBaseTransforms()
+    {
+        _baseLocalPositions = new Dictionary<Transform, Vector3>();
+        _baseLocalRotations = new Dictionary<Transform, Vector3>();
+
+        foreach (Rigidbody rb in _rigidbodies)
+        {
+            _baseLocalPositions.Add(rb.transform, rb.transform.localPosition);
+            _baseLocalRotations.Add(rb.transform, rb.transform.localEulerAngles);
+        }
     }
 }
