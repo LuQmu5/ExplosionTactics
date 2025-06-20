@@ -1,16 +1,31 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerController : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private const int RightMouseButtonNumber = 1;
+
+    [SerializeField] private PlayerView _view;
+    [SerializeField] private NavMeshAgent _agent;
+    [SerializeField] private float _movementSpeed = 5;
+
+    private void Start()
     {
-        
+        _agent.speed = _movementSpeed;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (Input.GetMouseButtonDown(RightMouseButtonNumber))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                _agent.SetDestination(hit.point);
+            }
+        }
+
+        _view.SetVelocityParam(_agent.velocity.magnitude);
     }
 }

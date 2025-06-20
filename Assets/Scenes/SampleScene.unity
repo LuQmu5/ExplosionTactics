@@ -764,6 +764,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3138c1541a9ec541be58c8e520c7da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 2292327507501023606}
+  _agent: {fileID: 1044940600}
+  _movementSpeed: 5
 --- !u!4 &1748877439889223826
 Transform:
   m_ObjectHideFlags: 0
@@ -4865,6 +4868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4d28cf85db41d40b58020c05dc4090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 2292327507501023605}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

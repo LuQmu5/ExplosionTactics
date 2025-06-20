@@ -1,16 +1,19 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))] 
 public class PlayerView : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private const string Velocity = nameof(Velocity);
+
+    [SerializeField] private Animator _animator;
+
+    private void Awake()
     {
-        
+        _animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetVelocityParam(float value)
     {
-        
+        _animator.SetFloat(Velocity, value);
     }
 }
