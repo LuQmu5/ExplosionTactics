@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     private const string Velocity = nameof(Velocity);
+    private const string StandUpAnimationName = "StandUp";
 
     [SerializeField] private PlayerController _player;
     [SerializeField] private Animator _animator;
@@ -20,7 +21,6 @@ public class PlayerView : MonoBehaviour
 
     public void PlayStandUp()
     {
-        _animator.Play("StandUp"); // убедись, что у тебя есть такая анимация
+        _animator.Play(StandUpAnimationName);
     }
-
 }

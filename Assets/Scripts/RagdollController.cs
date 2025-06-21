@@ -5,11 +5,14 @@ public class RagdollController : MonoBehaviour
 {
     [SerializeField] private Transform _root;
     [SerializeField] private Animator _animator;
+    [SerializeField] private Rigidbody _pelvis;
 
     private Rigidbody[] _rigidbodies;
 
     private Dictionary<Transform, Vector3> _baseLocalRotations;
     private Dictionary<Transform, Vector3> _baseLocalPositions;
+
+    public Rigidbody Pelvis => _pelvis;
 
     private void Awake()
     {

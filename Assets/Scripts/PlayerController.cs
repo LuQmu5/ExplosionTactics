@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     [Space(20)]
     [Header("Settings")]
     [SerializeField] private float _movementSpeed = 5;
+    [SerializeField] private LayerMask _groundMask;
 
     private ClickPointMarker _activeMarker;
 
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (Physics.Raycast(ray, out RaycastHit hit))
+            if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, _groundMask))
             {
                 _agent.SetDestination(hit.point);
                 CreateMarker(hit.point);
