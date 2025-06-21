@@ -61,4 +61,12 @@ public class RagdollController : MonoBehaviour
             _baseLocalRotations.Add(rb.transform, rb.transform.localEulerAngles);
         }
     }
+
+    public void ApplyExplosion(Vector3 origin, float force, float radius, float upwardsModifier)
+    {
+        foreach (var rb in _rigidbodies)
+        {
+            rb.AddExplosionForce(force, origin, radius, upwardsModifier, ForceMode.Impulse);
+        }
+    }
 }

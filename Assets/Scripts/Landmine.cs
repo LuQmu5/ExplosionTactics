@@ -26,9 +26,10 @@ public class Landmine : MonoBehaviour
         if (other.TryGetComponent(out RagdollController ragdoll))
         {
             ragdoll.Activate();
-            ragdoll.Pelvis.AddExplosionForce(_explosionForce, transform.position, _explosionRadius, _explosionForce / 2, ForceMode.Impulse);
+            ragdoll.ApplyExplosion(transform.position, _explosionForce, _explosionRadius, _explosionForce / 2);
 
             Destroy(gameObject);
         }
     }
+
 }
