@@ -732,6 +732,8 @@ MonoBehaviour:
   _audioSource: {fileID: 6140770440154572401}
   _explosionVFX: {fileID: 1826849231448255677}
   _explosionSFX: {fileID: 8300000, guid: ddb623fd06de2aa4e945a845bf23b41e, type: 3}
+  _idleSFX: {fileID: 8300000, guid: 2b907e2e57e59cb48bcddc2ccfd8ea0a, type: 3}
+  _activatingSFX: {fileID: 8300000, guid: 7b14d49ff7c83214d8d9e9f92680dffd, type: 3}
 --- !u!82 &6140770440154572401
 AudioSource:
   m_ObjectHideFlags: 0
@@ -742,12 +744,12 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 2b907e2e57e59cb48bcddc2ccfd8ea0a, type: 3}
+  m_Resource: {fileID: 8300000, guid: 2b907e2e57e59cb48bcddc2ccfd8ea0a, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.35
-  m_Pitch: 2
-  Loop: 0
+  m_Pitch: 1
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0

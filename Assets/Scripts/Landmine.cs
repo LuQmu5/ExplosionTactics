@@ -26,6 +26,8 @@ public class Landmine : MonoBehaviour
     {
         _collisionDetector.size = Vector3.one * _detectAreaRange;
         _collisionDetector.isTrigger = true;
+
+        _view.SetIdleSound();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,6 +40,8 @@ public class Landmine : MonoBehaviour
 
     private IEnumerator Activating()
     {
+        _view.SetActivatingSound();
+
         yield return new WaitForSeconds(_timeBeforeExplosion);
 
         Explode();
@@ -61,7 +65,7 @@ public class Landmine : MonoBehaviour
 
     private IEnumerator DelayDeactivating()
     {
-        float delay = 0.5f;
+        float delay = _view.GetExplosionSoundLength();
 
         yield return new WaitForSeconds(delay);
 
