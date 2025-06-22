@@ -17,79 +17,102 @@ public class PlayerController : MonoBehaviour, IHealth
     [SerializeField] private float _movementSpeed = 5;
     [SerializeField] private float _maxHealth = 10;
     [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private ClickPointMarkerView _clickPointMarkerView;
+    [SerializeField] private ClickPointMarkerView _clickPointMarkerViewPrefab;
 
     private AIMover _mover;
-    private ClickPointMarkerController _marker;
+    private ClickPointMarkerController _markerController;
     private Coroutine _takingDamageCoroutine;
+
     private Vector3 _currentMovePoint;
 
-    public event Action<float, float> Changed;
+    public event Action<float, float> HealthChanged;
 
-    public float Max { get; private set; }
+    public float MaxHealth { get; private set; }
 
-    public float Current { get; private set; }
+    public float CurrentHealth { get; private set; }
 
     private void Start()
     {
         _mover = new AIMover(_agent, _movementSpeed);
-        _marker = new ClickPointMarkerController(_clickPointMarkerView);
+        _currentMovePoint = transform.position;
 
-        Max = _maxHealth;
-        Current = _maxHealth;
-        Changed?.Invoke(Current, Max);
+        _view.Activate();
+        _ragdollController.Deactivate();
+
+        _markerController = new ClickPointMarkerController(_clickPointMarkerViewPrefab);
+
+        MaxHealth = _maxHealth;
+        CurrentHealth = _maxHealth;
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
     }
 
     private void Update()
     {
-        if (Current <= 0)
+        if (CurrentHealth <= 0 || _takingDamageCoroutine != null)
             return;
 
-        if (Input.GetMouseButtonDown(RightMouseButtonNumber) && _takingDamageCoroutine == null)
+        if (TryGetMovePoint(out _currentMovePoint)) 
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, _groundMask))
-            {
-                _currentMovePoint = hit.point;
-
-                _mover.MoveToPoint(hit.point);
-                _marker.SetMarkerToPosition(hit.point);
-            }
+            _mover.MoveToPoint(_currentMovePoint);
+            _markerController.SetMarkerToPosition(_currentMovePoint);
         }
 
-        _marker.CheckMarkerForDeactivate(transform.position);
+        _markerController.CheckMarkerForDeactivate(transform.position);
         _view.SetVelocity(_mover.Velocity.magnitude);
     }
 
     public void TakeDamage(float amount)
     {
-        Current -= amount;
-        Changed?.Invoke(Current, Max);
+        CurrentHealth = Mathf.Clamp(CurrentHealth - amount, 0, CurrentHealth);
+        HealthChanged?.Invoke(CurrentHealth, MaxHealth);
 
-        _view.SetHitTrigger();
+        if (CurrentHealth == 0)
+        {
+            HandleDeath();
+            return;
+        }
+
         _mover.Stop();
+        _view.SetHitTrigger();
 
         if (_takingDamageCoroutine != null)
             StopCoroutine(_takingDamageCoroutine);
 
-        _takingDamageCoroutine = StartCoroutine(TakingDamage());
-
-        if (Current <= 0)
-        {
-            Current = 0;
-            Changed?.Invoke(Current, Max);
-
-            _mover.Stop();
-            _marker.Deactivate();
-            _ragdollController.Activate();
-            _ragdollController.ApplyExplosion(transform.position, force: 25);
-        }
+        _takingDamageCoroutine = StartCoroutine(TakingDamagePause());
     }
 
-    private IEnumerator TakingDamage()
+    private bool TryGetMovePoint(out Vector3 result)
     {
-        float delay = 0.5f;
+        result = _currentMovePoint;
+
+        if (Input.GetMouseButtonDown(RightMouseButtonNumber))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, _groundMask))
+            {
+                result = hit.point;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void HandleDeath()
+    {
+        _mover.Stop();
+        _markerController.Deactivate();
+        _view.Deactivate();
+
+        _ragdollController.Activate();
+        _ragdollController.AplyForce(Vector3.up, force: 50);
+    }
+
+    private IEnumerator TakingDamagePause()
+    {
+        float delay = _view.GetAnimationClipLength(AnimationNames.Hit);
 
         yield return new WaitForSeconds(delay);
 

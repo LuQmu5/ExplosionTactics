@@ -14,12 +14,12 @@ public class HealthDisplay : MonoBehaviour
     {
         _offset = transform.position;
 
-        _playerHealth.Changed += OnHealthChanged;
+        _playerHealth.HealthChanged += OnHealthChanged;
     }
 
     private void OnDestroy()
     {
-        _playerHealth.Changed -= OnHealthChanged;
+        _playerHealth.HealthChanged -= OnHealthChanged;
     }
 
     private void LateUpdate()

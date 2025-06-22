@@ -3578,7 +3578,7 @@ MonoBehaviour:
   _groundMask:
     serializedVersion: 2
     m_Bits: 64
-  _clickPointMarkerView: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
+  _clickPointMarkerViewPrefab: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
 --- !u!195 &758287685750176034
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3614,8 +3614,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _root: {fileID: 8196030768817334700}
-  _animator: {fileID: 8502425231960527789}
-  _pelvis: {fileID: 4520386667791839666}
 --- !u!136 &6464850607780174173
 CapsuleCollider:
   m_ObjectHideFlags: 0

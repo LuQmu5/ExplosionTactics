@@ -4,79 +4,59 @@ using UnityEngine;
 public class RagdollController : MonoBehaviour
 {
     [SerializeField] private Transform _root;
-    [SerializeField] private Animator _animator;
-    [SerializeField] private Rigidbody _pelvis;
 
-    private Rigidbody[] _rigidbodies;
+    private Rigidbody[] _rigidRagdolParts;
 
-    private Dictionary<Transform, Vector3> _baseLocalRotations;
-    private Dictionary<Transform, Vector3> _baseLocalPositions;
-
-    public Rigidbody Pelvis => _pelvis;
+    private Dictionary<Rigidbody, Vector3> _baseLocalRotations;
+    private Dictionary<Rigidbody, Vector3> _baseLocalPositions;
 
     private void Awake()
     {
-        _rigidbodies = _root.GetComponentsInChildren<Rigidbody>();
-        SetBaseTransforms();
-
-        Deactivate();
+        _rigidRagdolParts = _root.GetComponentsInChildren<Rigidbody>();
+        SaveBaseTransforms();
     }
 
     public void Activate()
     {
-        _animator.enabled = false;
-
-        foreach (Rigidbody rb in _rigidbodies)
+        foreach (Rigidbody rigidbody in _rigidRagdolParts)
         {
-            rb.isKinematic = false;
+            rigidbody.isKinematic = false;
         }
     }
 
     public void Deactivate()
     {
-        foreach (Rigidbody rb in _rigidbodies)
+        foreach (Rigidbody rigidbody in _rigidRagdolParts)
         {
-            rb.isKinematic = true;
+            rigidbody.isKinematic = true;
 
-            ResetBaseTransformFor(rb);
-        }
-
-        _animator.enabled = true;
-    }
-
-    private void ResetBaseTransformFor(Rigidbody rb)
-    {
-        rb.transform.localEulerAngles = _baseLocalRotations[rb.transform];
-        rb.transform.localPosition = _baseLocalPositions[rb.transform];
-    }
-
-    private void SetBaseTransforms()
-    {
-        _baseLocalPositions = new Dictionary<Transform, Vector3>();
-        _baseLocalRotations = new Dictionary<Transform, Vector3>();
-
-        foreach (Rigidbody rb in _rigidbodies)
-        {
-            _baseLocalPositions.Add(rb.transform, rb.transform.localPosition);
-            _baseLocalRotations.Add(rb.transform, rb.transform.localEulerAngles);
+            ResetBaseTransformFor(rigidbody);
         }
     }
 
-    public void ApplyExplosion(Vector3 origin, float force)
+    private void ResetBaseTransformFor(Rigidbody rigidbody)
     {
-        foreach (var rb in _rigidbodies)
+        rigidbody.transform.localEulerAngles = _baseLocalRotations[rigidbody];
+        rigidbody.transform.localPosition = _baseLocalPositions[rigidbody];
+    }
+
+    private void SaveBaseTransforms()
+    {
+        _baseLocalPositions = new Dictionary<Rigidbody, Vector3>();
+        _baseLocalRotations = new Dictionary<Rigidbody, Vector3>();
+
+        foreach (Rigidbody rigidbody in _rigidRagdolParts)
         {
-            if (rb.linearVelocity.magnitude >= 0.1f)
-            {
-                rb.linearVelocity = Vector3.zero;
-            }
+            _baseLocalPositions.Add(rigidbody, rigidbody.transform.localPosition);
+            _baseLocalRotations.Add(rigidbody, rigidbody.transform.localEulerAngles);
+        }
+    }
 
-            Vector3 sideDirection = (transform.position - origin).normalized;
-            sideDirection.y = 0f;
-            sideDirection = sideDirection.normalized;
-            float sideForce = force * 0.75f;
-
-            rb.AddForce(sideDirection * sideForce + Vector3.up * force, ForceMode.Impulse);
+    public void AplyForce(Vector3 direction, float force)
+    {
+        foreach (var rigidbody in _rigidRagdolParts)
+        {
+            rigidbody.AddForce(direction * force, ForceMode.Impulse);
         }
     }
 }
