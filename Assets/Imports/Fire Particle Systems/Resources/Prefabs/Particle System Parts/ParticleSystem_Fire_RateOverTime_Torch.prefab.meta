@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 280d7025bd96749f7b7221997033b26f
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Fire_RateOverTime_Torch.prefab
+  uploadId: 367318

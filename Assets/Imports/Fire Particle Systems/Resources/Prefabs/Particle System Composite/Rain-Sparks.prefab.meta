@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 317328d39745a44049c9f96550d59821
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Composite/Rain-Sparks.prefab
+  uploadId: 367318

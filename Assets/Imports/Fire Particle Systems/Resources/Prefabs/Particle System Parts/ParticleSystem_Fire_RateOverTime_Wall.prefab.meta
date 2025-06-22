@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 545f0855b25e142149a30e8941a73be7
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Fire_RateOverTime_Wall.prefab
+  uploadId: 367318

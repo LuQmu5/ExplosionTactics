@@ -89,11 +89,11 @@ public class PlayerController : MonoBehaviour
         {
             Vector3 direction = (transform.position - forceOrigin.Value).normalized;
             Vector3 velocityComponent = _mover.Velocity.normalized * 0.5f;
-            _ragdollController.AplyForce(direction + velocityComponent, force);
+            _ragdollController.AplyForce(Vector3.up + direction + velocityComponent, force);
         }
         else
         {
-            _ragdollController.AplyForce(Vector3.up, 50);
+            _ragdollController.AplyForce(Vector3.up, force);
         }
     }
 

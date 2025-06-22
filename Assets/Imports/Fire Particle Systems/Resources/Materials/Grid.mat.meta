@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 634efac62037043bc9095640a8e1801c
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Materials/Grid.mat
+  uploadId: 367318

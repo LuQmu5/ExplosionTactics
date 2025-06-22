@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: cd684bf5e14ff40bd9fde69f0ad12184
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Composite/Fire_Small-Sparks_RateOverTime.prefab
+  uploadId: 367318

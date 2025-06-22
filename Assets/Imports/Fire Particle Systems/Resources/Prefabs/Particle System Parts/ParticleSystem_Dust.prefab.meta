@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 37d36c6e35b2448069d2d7b2a54d2a1e
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Dust.prefab
+  uploadId: 367318

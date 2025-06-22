@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c82b10c95c5484801b7618f55fbff557
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Splash.prefab
+  uploadId: 367318

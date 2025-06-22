@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9abc96d5b9ef94112b415043231ff3b0
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Fire_Ring_Loop.prefab
+  uploadId: 367318

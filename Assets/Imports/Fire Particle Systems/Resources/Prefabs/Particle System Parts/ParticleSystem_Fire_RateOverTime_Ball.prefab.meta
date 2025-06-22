@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7a52a2f5def0e42c8976d8a69a08df64
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Fire_RateOverTime_Ball.prefab
+  uploadId: 367318

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1f1d0eb60890941809851582ab189602
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Materials/ParticleSystem_Multiply.mat
+  uploadId: 367318

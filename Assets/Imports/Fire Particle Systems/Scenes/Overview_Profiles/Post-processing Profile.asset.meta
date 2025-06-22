@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: ff88c218d9a334b51b9be7a096c38172
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Scenes/Overview_Profiles/Post-processing
+    Profile.asset
+  uploadId: 367318

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b80d6728ed796486a9794e8f98467142
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Sparks_RateOverTime.prefab
+  uploadId: 367318

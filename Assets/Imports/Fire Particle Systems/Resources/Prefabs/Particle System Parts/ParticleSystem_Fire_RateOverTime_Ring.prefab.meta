@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 87d30b43a49d64b8e92c699a1f79e722
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Fire_RateOverTime_Ring.prefab
+  uploadId: 367318

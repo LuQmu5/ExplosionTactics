@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fc87bd5b7312d49d791633293250d799
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Composite/Explosion_01.prefab
+  uploadId: 367318

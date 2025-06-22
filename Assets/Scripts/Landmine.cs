@@ -3,7 +3,12 @@ using UnityEngine;
 
 public class Landmine : MonoBehaviour
 {
+    [Header("Components")]
+    [SerializeField] private LandmineView _view;
     [SerializeField] private BoxCollider _collisionDetector;
+
+    [Space(20)]
+    [Header("Settings")]
     [SerializeField] private float _detectAreaRange = 2;
     [SerializeField] private float _explosionForce = 50;
     [SerializeField] private float _exlosionRange = 4;
@@ -36,6 +41,7 @@ public class Landmine : MonoBehaviour
         yield return new WaitForSeconds(_timeBeforeExplosion);
 
         Explode();
+        _view.PlayExplosionEffect();
     }
 
     private void Explode()
@@ -50,8 +56,15 @@ public class Landmine : MonoBehaviour
             }
         }
 
-        // VFX и дезактивация
-        gameObject.SetActive(false);
+        StartCoroutine(DelayDeactivating());
     }
 
+    private IEnumerator DelayDeactivating()
+    {
+        float delay = 0.5f;
+
+        yield return new WaitForSeconds(delay);
+
+        gameObject.SetActive(false);
+    }
 }

@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8d0855c4cb4ea41e59903544501150c1
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Fire_Sphere_Medium.prefab
+  uploadId: 367318

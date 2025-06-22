@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d1a4a4eed5b514175b10a10ea1c19add
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Materials/ParticleSystem_Additive_Emission.mat
+  uploadId: 367318

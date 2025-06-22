@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 031946e78318d473a9817216c5a87afd
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 168270
+  packageName: Fire
+  packageVersion: 1.0
+  assetPath: Assets/Fire Particle Systems/Resources/Prefabs/Particle System Parts/ParticleSystem_Sparks_Small.prefab
+  uploadId: 367318

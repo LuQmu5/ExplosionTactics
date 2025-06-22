@@ -657,7 +657,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -700,12 +700,28 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: _detectAreaRange
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _timeBeforeExplosion
-      value: 0.1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6000157809852818075, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_Name
       value: Landmine (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.z
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -730,7 +746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -766,7 +782,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _timeBeforeExplosion
-      value: 0.1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6000157809852818075, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_Name
@@ -883,7 +899,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -922,16 +938,36 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: _exlosionRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _explosionForce
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: _detectAreaRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _timeBeforeExplosion
-      value: 0.1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6000157809852818075, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_Name
       value: Landmine (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.z
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -987,7 +1023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1607971096697514489, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1018,16 +1054,40 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: _exlosionRange
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _explosionForce
       value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: _detectAreaRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _timeBeforeExplosion
-      value: 0.1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6000157809852818075, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: m_Name
       value: Landmine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6000157809852818075, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.y
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7541172877652050891, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: m_Size.z
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
