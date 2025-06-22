@@ -1,12 +1,15 @@
+using System.Collections;
 using UnityEngine;
 
 public class Landmine : MonoBehaviour
 {
-
     [SerializeField] private BoxCollider _collisionDetector;
     [SerializeField] private float _detectAreaRange = 2;
-    [SerializeField] private float _explosionRadius = 4;
-    [SerializeField] private float _explosionForce = 10;
+    [SerializeField] private float _exlosionRange = 4;
+    [SerializeField] private float _timeBeforeExplosion = 3;
+    [SerializeField] private float _damage = 3;
+
+    private Coroutine _activatingCoroutine;
 
     private void OnValidate()
     {
@@ -21,15 +24,32 @@ public class Landmine : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
-
-        if (other.TryGetComponent(out RagdollController ragdoll))
+        if (other.TryGetComponent(out IHealth actor) && _activatingCoroutine == null)
         {
-            ragdoll.Activate();
-            ragdoll.ApplyExplosion(transform.position, _explosionForce, _explosionRadius, _explosionForce / 2);
-
-            Destroy(gameObject);
+            _activatingCoroutine = StartCoroutine(Activating());
         }
     }
 
+    private IEnumerator Activating()
+    {
+        yield return new WaitForSeconds(_timeBeforeExplosion);
+
+        Explode();
+    }
+
+    private void Explode()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, _exlosionRange);
+
+        foreach (Collider hit in hits)
+        {
+            if (hit.TryGetComponent(out IHealth actor))
+            {
+                actor.TakeDamage(_damage);
+            }
+        }
+
+        // vfx
+        gameObject.SetActive(false);
+    }
 }

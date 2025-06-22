@@ -62,11 +62,21 @@ public class RagdollController : MonoBehaviour
         }
     }
 
-    public void ApplyExplosion(Vector3 origin, float force, float radius, float upwardsModifier)
+    public void ApplyExplosion(Vector3 origin, float force)
     {
         foreach (var rb in _rigidbodies)
         {
-            rb.AddExplosionForce(force, origin, radius, upwardsModifier, ForceMode.Impulse);
+            if (rb.linearVelocity.magnitude >= 0.1f)
+            {
+                rb.linearVelocity = Vector3.zero;
+            }
+
+            Vector3 sideDirection = (transform.position - origin).normalized;
+            sideDirection.y = 0f;
+            sideDirection = sideDirection.normalized;
+            float sideForce = force * 0.75f;
+
+            rb.AddForce(sideDirection * sideForce + Vector3.up * force, ForceMode.Impulse);
         }
     }
 }

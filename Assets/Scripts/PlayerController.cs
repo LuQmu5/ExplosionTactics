@@ -1,28 +1,29 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IHealth
 {
     private const int RightMouseButtonNumber = 1;
 
     [Header("Components")]
     [SerializeField] private PlayerView _view;
-    [SerializeField] private NavMeshAgent _agent;
-    [SerializeField] private ClickPointMarker _clickPointMarkerPrefab;
     [SerializeField] private RagdollController _ragdollController;
+    [SerializeField] private NavMeshAgent _agent;
 
     [Space(20)]
     [Header("Settings")]
     [SerializeField] private float _movementSpeed = 5;
+    [SerializeField] private float _health = 10;
     [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private ClickPointMarkerView _clickPointMarkerView;
 
-    private ClickPointMarker _activeMarker;
-
-    public Vector3 Velocity => _agent.velocity;
+    private AIMover _mover;
+    private ClickPointMarkerController _marker;
 
     private void Start()
     {
-        _agent.speed = _movementSpeed;
+        _mover = new AIMover(_agent, _movementSpeed);
+        _marker = new ClickPointMarkerController(_clickPointMarkerView);
     }
 
     private void Update()
@@ -33,28 +34,23 @@ public class PlayerController : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, float.PositiveInfinity, _groundMask))
             {
-                _agent.SetDestination(hit.point);
-                CreateMarker(hit.point);
+                _mover.MoveToPoint(hit.point);
+                _marker.SetMarkerToPosition(hit.point);
             }
         }
 
-        if (_activeMarker != null)
-            CheckMarkerForDelete();
+        _marker.CheckMarkerForDeactivate(transform.position);
+        _view.SetVelocity(_mover.Velocity.magnitude);
     }
 
-    private void CheckMarkerForDelete()
+    public void TakeDamage(float amount)
     {
-        if (Vector3.Distance(transform.position, _activeMarker.transform.position) <= _agent.radius)
+        _health -= amount;
+        _view.SetHitTrigger();
+
+        if (_health <= 0)
         {
-            Destroy(_activeMarker.gameObject);
+            gameObject.SetActive(false);
         }
-    }
-
-    private void CreateMarker(Vector3 at)
-    {
-        if (_activeMarker != null)
-            Destroy(_activeMarker.gameObject);
-
-        _activeMarker = Instantiate(_clickPointMarkerPrefab, at, Quaternion.identity);
     }
 }
