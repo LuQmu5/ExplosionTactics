@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
@@ -14,7 +15,7 @@ public class PlayerController : MonoBehaviour, IHealth
     [Space(20)]
     [Header("Settings")]
     [SerializeField] private float _movementSpeed = 5;
-    [SerializeField] private float _health = 10;
+    [SerializeField] private float _maxHealth = 10;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private ClickPointMarkerView _clickPointMarkerView;
 
@@ -23,14 +24,27 @@ public class PlayerController : MonoBehaviour, IHealth
     private Coroutine _takingDamageCoroutine;
     private Vector3 _currentMovePoint;
 
+    public event Action<float, float> Changed;
+
+    public float Max { get; private set; }
+
+    public float Current { get; private set; }
+
     private void Start()
     {
         _mover = new AIMover(_agent, _movementSpeed);
         _marker = new ClickPointMarkerController(_clickPointMarkerView);
+
+        Max = _maxHealth;
+        Current = _maxHealth;
+        Changed?.Invoke(Current, Max);
     }
 
     private void Update()
     {
+        if (Current <= 0)
+            return;
+
         if (Input.GetMouseButtonDown(RightMouseButtonNumber) && _takingDamageCoroutine == null)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -50,7 +64,9 @@ public class PlayerController : MonoBehaviour, IHealth
 
     public void TakeDamage(float amount)
     {
-        _health -= amount;
+        Current -= amount;
+        Changed?.Invoke(Current, Max);
+
         _view.SetHitTrigger();
         _mover.Stop();
 
@@ -59,16 +75,21 @@ public class PlayerController : MonoBehaviour, IHealth
 
         _takingDamageCoroutine = StartCoroutine(TakingDamage());
 
-        if (_health <= 0)
+        if (Current <= 0)
         {
+            Current = 0;
+            Changed?.Invoke(Current, Max);
+
+            _mover.Stop();
             _marker.Deactivate();
-            gameObject.SetActive(false);
+            _ragdollController.Activate();
+            _ragdollController.ApplyExplosion(transform.position, force: 25);
         }
     }
 
     private IEnumerator TakingDamage()
     {
-        float delay = 0.3f;
+        float delay = 0.5f;
 
         yield return new WaitForSeconds(delay);
 

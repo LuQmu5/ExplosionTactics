@@ -1,4 +1,11 @@
-﻿public interface IHealth
+﻿using System;
+
+public interface IHealth
 {
-    public void TakeDamage(float amount);
+    float Max { get; }
+    float Current { get; }
+
+    void TakeDamage(float amount);
+
+    event Action<float, float> Changed;
 }
