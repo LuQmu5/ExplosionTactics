@@ -61,14 +61,14 @@ public class PlayerController : MonoBehaviour, IHealth
         _view.SetVelocity(_mover.Velocity.magnitude);
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float amount, Vector3? forceOrigin = null, float force = 0f)
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - amount, 0, CurrentHealth);
         HealthChanged?.Invoke(CurrentHealth, MaxHealth);
 
         if (CurrentHealth == 0)
         {
-            HandleDeath();
+            HandleDeath(forceOrigin, force);
             return;
         }
 
@@ -80,6 +80,7 @@ public class PlayerController : MonoBehaviour, IHealth
 
         _takingDamageCoroutine = StartCoroutine(TakingDamagePause());
     }
+
 
     private bool TryGetMovePoint(out Vector3 result)
     {
@@ -100,15 +101,25 @@ public class PlayerController : MonoBehaviour, IHealth
         return false;
     }
 
-    private void HandleDeath()
+    private void HandleDeath(Vector3? forceOrigin = null, float force = 0f)
     {
         _mover.Stop();
         _markerController.Deactivate();
         _view.Deactivate();
 
         _ragdollController.Activate();
-        _ragdollController.AplyForce(Vector3.up, force: 50);
+
+        if (forceOrigin.HasValue)
+        {
+            Vector3 direction = (transform.position - forceOrigin.Value).normalized;
+
+            float velocityComponentFactor = 0.25f;
+            Vector3 velocityComponent = _mover.Velocity.normalized * velocityComponentFactor;
+
+            _ragdollController.AplyForce(Vector3.up + direction + velocityComponent, force);
+        }
     }
+
 
     private IEnumerator TakingDamagePause()
     {

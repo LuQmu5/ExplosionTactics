@@ -5,6 +5,7 @@ public class Landmine : MonoBehaviour
 {
     [SerializeField] private BoxCollider _collisionDetector;
     [SerializeField] private float _detectAreaRange = 2;
+    [SerializeField] private float _explosionForce = 50;
     [SerializeField] private float _exlosionRange = 4;
     [SerializeField] private float _timeBeforeExplosion = 3;
     [SerializeField] private float _damage = 3;
@@ -45,11 +46,12 @@ public class Landmine : MonoBehaviour
         {
             if (hit.TryGetComponent(out IHealth actor))
             {
-                actor.TakeDamage(_damage);
+                actor.TakeDamage(_damage, transform.position, _explosionForce);
             }
         }
 
-        // vfx
+        // VFX и дезактивация
         gameObject.SetActive(false);
     }
+
 }
