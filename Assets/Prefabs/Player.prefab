@@ -461,6 +461,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 23487852035965768}
   _animator: {fileID: 8502425231960527789}
+  _hitSpeedMultiplier: 2
 --- !u!1 &839066973942599288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3535,6 +3536,7 @@ GameObject:
   - component: {fileID: 7595618247383346859}
   - component: {fileID: 6464850607780174173}
   - component: {fileID: 218678435647616796}
+  - component: {fileID: 8901241358560038808}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3573,8 +3575,8 @@ MonoBehaviour:
   _view: {fileID: 8023895235059893954}
   _ragdollController: {fileID: 7595618247383346859}
   _agent: {fileID: 758287685750176034}
+  _healthSystem: {fileID: 8901241358560038808}
   _movementSpeed: 5
-  _maxHealth: 10
   _groundMask:
     serializedVersion: 2
     m_Bits: 64
@@ -3664,6 +3666,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8901241358560038808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231357079531139954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28afeb5c7a6d23f45a43d86b61afaa55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxHealth: 10
 --- !u!1 &8398477567558624175
 GameObject:
   m_ObjectHideFlags: 0
@@ -4299,8 +4314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89aaed0b18d30154896e48d0fb44d6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 2851642489012152029}
-  _playerHealth: {fileID: 23487852035965768}
+  _pivot: {fileID: 2851642489012152029}
+  _healthActor: {fileID: 8901241358560038808}
   _filledImage: {fileID: 3637344863465277604}
 --- !u!1 &9032270727718397642
 GameObject:
