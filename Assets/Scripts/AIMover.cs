@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class AIMover
@@ -15,6 +16,12 @@ public class AIMover
 
     public void MoveToPoint(Vector3 point)
     {
+        _agent.isStopped = false;
         _agent.SetDestination(point);
+    }
+
+    public void Stop()
+    {
+        _agent.isStopped = true;
     }
 }

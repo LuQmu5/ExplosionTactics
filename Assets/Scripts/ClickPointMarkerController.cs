@@ -25,4 +25,9 @@ public class ClickPointMarkerController
         _marker.gameObject.SetActive(true);
         _marker.transform.position = at;
     }
+
+    public void Deactivate()
+    {
+        _marker.gameObject.SetActive(false);
+    }
 }
