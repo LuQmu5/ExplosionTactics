@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     private const string Velocity = nameof(Velocity);
-    private const string StandUpAnimationName = "StandUp";
+    private const string Hit = nameof(Hit);
 
     [SerializeField] private PlayerController _player;
     [SerializeField] private Animator _animator;
@@ -14,13 +14,13 @@ public class PlayerView : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    public void SetVelocity(float value)
     {
-        _animator.SetFloat(Velocity, _player.Velocity.magnitude);
+        _animator.SetFloat(Velocity, value);
     }
 
-    public void PlayStandUp()
+    public void SetHitTrigger()
     {
-        _animator.Play(StandUpAnimationName);
+        _animator.SetTrigger(Hit);
     }
 }
