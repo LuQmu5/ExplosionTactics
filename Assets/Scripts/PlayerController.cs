@@ -16,14 +16,17 @@ public class PlayerController : MonoBehaviour
     [Space(20)]
     [Header("Settings")]
     [SerializeField] private float _movementSpeed = 5;
+    [SerializeField] private float _idleTimeToPatrol = 5;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private ClickPointMarkerView _clickPointMarkerViewPrefab;
 
     private AIMover _mover;
     private ClickPointMarkerController _markerController;
+    private PlayerNavMeshPatrolSystem _patrolSystem;
 
     private Coroutine _takingDamageCoroutine;
     private Vector3 _currentMovePoint;
+    private float _currentIdleTimer;
 
     private void Start()
     {
@@ -37,6 +40,9 @@ public class PlayerController : MonoBehaviour
 
         _healthSystem.TakedDamage += OnTakedDamage;
         _healthSystem.Died += OnDeath;
+
+        _patrolSystem = new PlayerNavMeshPatrolSystem(this, _mover);
+        _currentIdleTimer = _idleTimeToPatrol;
     }
 
     private void OnDestroy()
@@ -52,12 +58,22 @@ public class PlayerController : MonoBehaviour
 
         if (TryGetMovePoint(out _currentMovePoint))
         {
+            _currentIdleTimer = _idleTimeToPatrol;
+            _patrolSystem.StopPatrol();
+
             _mover.MoveToPoint(_currentMovePoint);
             _markerController.SetMarkerToPosition(_currentMovePoint);
         }
 
         _markerController.CheckMarkerForDeactivate(transform.position);
         _view.SetVelocity(_mover.Velocity.magnitude);
+
+
+        if (_currentIdleTimer > 0)
+            _currentIdleTimer -= Time.deltaTime;
+
+        if (_currentIdleTimer <= 0)
+            _patrolSystem.StartPatrol();
     }
 
     private bool TryGetMovePoint(out Vector3 result)
@@ -103,7 +119,10 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(_takingDamageCoroutine);
 
         _mover.Stop();
+
         _view.SetHitTrigger();
+        _view.SetHealthPercentParam(_healthSystem.CurrentHealth / _healthSystem.MaxHealth);
+
         _takingDamageCoroutine = StartCoroutine(TakingDamagePause());
     }
 

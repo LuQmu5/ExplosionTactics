@@ -20,6 +20,7 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private PlayerController _player;
     [SerializeField] private Animator _animator;
     [SerializeField] private float _hitSpeedMultiplier = 2;
+    [SerializeField] private float _idleSpeedMultiplier = 0.5f;
 
     private Dictionary<AnimationNames, float> _animationMultipliersMap;
 
@@ -30,7 +31,8 @@ public class PlayerView : MonoBehaviour
 
         _animationMultipliersMap = new Dictionary<AnimationNames, float>()
         {
-            [AnimationNames.Hit] = _hitSpeedMultiplier
+            [AnimationNames.Hit] = _hitSpeedMultiplier,
+            [AnimationNames.Idle] = _idleSpeedMultiplier,
         };
 
     }
@@ -43,6 +45,11 @@ public class PlayerView : MonoBehaviour
     public void SetHitTrigger()
     {
         _animator.SetTrigger(AnimationNames.Hit.ToString());
+    }
+
+    public void SetHealthPercentParam(float value)
+    {
+        _animator.SetFloat("HealthPercent", value);
     }
 
     public float GetAnimationClipLength(AnimationNames clipName)
