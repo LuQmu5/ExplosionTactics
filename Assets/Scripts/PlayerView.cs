@@ -7,6 +7,7 @@ public enum AnimationNames
     Idle = 0,
     Run = 1,
     Hit = 2,
+    Jump = 3,
 }
 
 
@@ -45,6 +46,11 @@ public class PlayerView : MonoBehaviour
     public void SetHitTrigger()
     {
         _animator.SetTrigger(AnimationNames.Hit.ToString());
+    }
+
+    public void SetJumpingState(bool state)
+    {
+        _animator.SetBool("IsJumping", state);
     }
 
     public void SetHealthPercentParam(float value)

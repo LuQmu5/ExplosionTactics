@@ -462,6 +462,7 @@ MonoBehaviour:
   _player: {fileID: 23487852035965768}
   _animator: {fileID: 8502425231960527789}
   _hitSpeedMultiplier: 2
+  _idleSpeedMultiplier: 0.5
 --- !u!1 &839066973942599288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3577,10 +3578,13 @@ MonoBehaviour:
   _agent: {fileID: 758287685750176034}
   _healthSystem: {fileID: 8901241358560038808}
   _movementSpeed: 5
+  _idleTimeToPatrol: 5
   _groundMask:
     serializedVersion: 2
     m_Bits: 64
   _clickPointMarkerViewPrefab: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
+  _jumpUpOffset: -1
+  _jumpDownPeak: 2
 --- !u!195 &758287685750176034
 NavMeshAgent:
   m_ObjectHideFlags: 0

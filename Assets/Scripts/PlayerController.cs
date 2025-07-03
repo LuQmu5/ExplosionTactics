@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -19,12 +20,17 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float _idleTimeToPatrol = 5;
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private ClickPointMarkerView _clickPointMarkerViewPrefab;
+    [SerializeField] private float _jumpUpOffset = 0.5f;
+    [SerializeField] private float _jumpDownPeak = 1f;
+
 
     private AIMover _mover;
     private ClickPointMarkerController _markerController;
     private PlayerNavMeshPatrolSystem _patrolSystem;
 
     private Coroutine _takingDamageCoroutine;
+    private Coroutine _jumpingCoroutine;
+
     private Vector3 _currentMovePoint;
     private float _currentIdleTimer;
 
@@ -56,7 +62,7 @@ public class PlayerController : MonoBehaviour
         if (_healthSystem.CurrentHealth <= 0 || _takingDamageCoroutine != null)
             return;
 
-        if (TryGetMovePoint(out _currentMovePoint))
+        if (_jumpingCoroutine == null && TryGetMovePoint(out _currentMovePoint))
         {
             _currentIdleTimer = _idleTimeToPatrol;
             _patrolSystem.StopPatrol();
@@ -68,19 +74,80 @@ public class PlayerController : MonoBehaviour
         _markerController.CheckMarkerForDeactivate(transform.position);
         _view.SetVelocity(_mover.Velocity.magnitude);
 
-
         if (_currentIdleTimer > 0)
             _currentIdleTimer -= Time.deltaTime;
 
         if (_currentIdleTimer <= 0)
             _patrolSystem.StartPatrol();
+
+        if (_agent.enabled && _agent.isOnOffMeshLink && _jumpingCoroutine == null)
+        {
+            _jumpingCoroutine = StartCoroutine(JumpAcrossLink());
+        }
     }
+
+    private IEnumerator JumpAcrossLink()
+    {
+        _view.SetJumpingState(true);
+
+        OffMeshLinkData link = _agent.currentOffMeshLinkData;
+        Vector3 startPos = _agent.transform.position;
+        Vector3 endPos = link.endPos;
+
+        // Только горизонтальный поворот
+        Vector3 flatDir = new Vector3(endPos.x - startPos.x, 0f, endPos.z - startPos.z);
+        Quaternion targetRotation = Quaternion.LookRotation(flatDir);
+
+        _agent.enabled = false;
+
+        // Быстрый разворот
+        float rotationDuration = 0.1f * _view.GetAnimationClipLength(AnimationNames.Jump);
+        transform.DORotateQuaternion(targetRotation, rotationDuration)
+                 .OnUpdate(() =>
+                 {
+                     var euler = transform.eulerAngles;
+                     transform.rotation = Quaternion.Euler(0f, euler.y, 0f);
+                 });
+
+        yield return new WaitForSeconds(rotationDuration);
+
+        float animationStartDelay = 0.15f;
+        yield return new WaitForSeconds(animationStartDelay);
+
+        // Прыжок
+        float jumpDuration = _view.GetAnimationClipLength(AnimationNames.Jump) * 0.5f;
+        float verticalDelta = endPos.y - startPos.y;
+
+        float jumpPower = verticalDelta > 0
+            ? verticalDelta + _jumpUpOffset
+            : _jumpDownPeak;
+
+        Tween jumpTween = transform
+            .DOJump(endPos, jumpPower, 1, jumpDuration)
+            .SetEase(Ease.OutQuad);
+
+        yield return jumpTween.WaitForCompletion();
+
+        transform.position = endPos;
+        transform.rotation = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
+
+        _agent.enabled = true;
+        _agent.CompleteOffMeshLink();
+        _jumpingCoroutine = null;
+
+        _mover.MoveToPoint(_currentMovePoint);
+
+        _view.SetJumpingState(false);
+    }
+
+
+
 
     private bool TryGetMovePoint(out Vector3 result)
     {
         result = _currentMovePoint;
 
-        if (Input.GetMouseButtonDown(RightMouseButtonNumber))
+        if (Input.GetMouseButton(RightMouseButtonNumber)) // DOwn
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
