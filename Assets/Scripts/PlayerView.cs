@@ -1,41 +1,20 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum AnimationNames
-{
-    Idle = 0,
-    Run = 1,
-    Hit = 2,
-    Jump = 3,
-}
-
-
-[RequireComponent(typeof(Animator))] 
+[RequireComponent(typeof(Animator))]
 public class PlayerView : MonoBehaviour
 {
-    private const string Velocity = nameof(Velocity);
-    private const string Hit = nameof(Hit);
-    private const string HitSpeedMultiplier = nameof(HitSpeedMultiplier);
+    private static readonly int Velocity = Animator.StringToHash("Velocity");
+    private static readonly int Hit = Animator.StringToHash("Hit");
+    private static readonly int IsJumping = Animator.StringToHash("IsJumping");
+    private static readonly int HealthPercent = Animator.StringToHash("HealthPercent");
 
-    [SerializeField] private PlayerController _player;
     [SerializeField] private Animator _animator;
-    [SerializeField] private float _hitSpeedMultiplier = 2;
-    [SerializeField] private float _idleSpeedMultiplier = 0.5f;
-
-    private Dictionary<AnimationNames, float> _animationMultipliersMap;
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
-        _animator.SetFloat(HitSpeedMultiplier, _hitSpeedMultiplier);
-
-        _animationMultipliersMap = new Dictionary<AnimationNames, float>()
-        {
-            [AnimationNames.Hit] = _hitSpeedMultiplier,
-            [AnimationNames.Idle] = _idleSpeedMultiplier,
-        };
-
+        if (_animator == null)
+            _animator = GetComponent<Animator>();
     }
 
     public void SetVelocity(float value)
@@ -45,52 +24,36 @@ public class PlayerView : MonoBehaviour
 
     public void SetHitTrigger()
     {
-        _animator.SetTrigger(AnimationNames.Hit.ToString());
+        _animator.SetTrigger(Hit);
     }
 
-    public void SetJumpingState(bool state)
+    public void SetJumpingState(bool isJumping)
     {
-        _animator.SetBool("IsJumping", state);
+        _animator.SetBool(IsJumping, isJumping);
     }
 
     public void SetHealthPercentParam(float value)
     {
-        _animator.SetFloat("HealthPercent", value);
+        _animator.SetFloat(HealthPercent, value);
     }
 
-    public float GetAnimationClipLength(AnimationNames clipName)
+    public float GetAnimationClipLength(string clipName)
     {
-        RuntimeAnimatorController ac = _animator.runtimeAnimatorController;
+        var controller = _animator.runtimeAnimatorController;
+        if (controller == null) return 0f;
 
-        foreach (var clip in ac.animationClips)
+        foreach (var animClip in controller.animationClips)
         {
-            if (clip.name == clipName.ToString())
+            if (animClip.name.Equals(clipName))
             {
-                float defaultMultiplier = 1f;
-                float multiplier = _animationMultipliersMap.ContainsKey(clipName) ? _animationMultipliersMap[clipName] : defaultMultiplier;
-                float totalLength = clip.length / multiplier;
-
-                /*
-                Debug.Log(clip.name);
-                Debug.Log(clip.length);
-                Debug.Log(totalLength);
-                */
-
-                return totalLength;
+                return animClip.length;
             }
         }
 
-        Debug.LogWarning($"Анимация с именем '{clipName}' не найдена.");
+        Debug.LogWarning($"Animation clip '{clipName}' not found.");
         return 0f;
     }
 
-    public void Deactivate()
-    {
-        _animator.enabled = false;
-    }
-
-    public void Activate()
-    {
-        _animator.enabled = true;
-    }
+    public void Deactivate() => _animator.enabled = false;
+    public void Activate() => _animator.enabled = true;
 }

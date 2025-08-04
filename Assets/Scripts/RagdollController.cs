@@ -1,62 +1,47 @@
-﻿using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RagdollController : MonoBehaviour
 {
-    [SerializeField] private Transform _root;
+    [SerializeField] private Rigidbody[] _ragdollBodies;
+    [SerializeField] private Animator _animator;
 
-    private Rigidbody[] _rigidRagdolParts;
-
-    private Dictionary<Rigidbody, Vector3> _baseLocalRotations;
-    private Dictionary<Rigidbody, Vector3> _baseLocalPositions;
+    private bool _isActive;
 
     private void Awake()
     {
-        _rigidRagdolParts = _root.GetComponentsInChildren<Rigidbody>();
-        SaveBaseTransforms();
+        if (_animator == null)
+            _animator = GetComponent<Animator>();
+
+        _ragdollBodies = GetComponentsInChildren<Rigidbody>();
+        Deactivate();
     }
 
-    public void Activate()
+    public void Activate(Vector3 direction, float force)
     {
-        foreach (Rigidbody rigidbody in _rigidRagdolParts)
+        if (_isActive)
+            return;
+
+        _animator.enabled = false;
+
+        foreach (var body in _ragdollBodies)
         {
-            rigidbody.isKinematic = false;
+            body.isKinematic = false;
+            body.AddForce(direction * force, ForceMode.Impulse);
         }
+
+        _isActive = true;
     }
 
     public void Deactivate()
     {
-        foreach (Rigidbody rigidbody in _rigidRagdolParts)
+        foreach (var body in _ragdollBodies)
         {
-            rigidbody.isKinematic = true;
-
-            ResetBaseTransformFor(rigidbody);
+            body.isKinematic = true;
         }
-    }
 
-    private void ResetBaseTransformFor(Rigidbody rigidbody)
-    {
-        rigidbody.transform.localEulerAngles = _baseLocalRotations[rigidbody];
-        rigidbody.transform.localPosition = _baseLocalPositions[rigidbody];
-    }
+        if (_animator != null)
+            _animator.enabled = true;
 
-    private void SaveBaseTransforms()
-    {
-        _baseLocalPositions = new Dictionary<Rigidbody, Vector3>();
-        _baseLocalRotations = new Dictionary<Rigidbody, Vector3>();
-
-        foreach (Rigidbody rigidbody in _rigidRagdolParts)
-        {
-            _baseLocalPositions.Add(rigidbody, rigidbody.transform.localPosition);
-            _baseLocalRotations.Add(rigidbody, rigidbody.transform.localEulerAngles);
-        }
-    }
-
-    public void AplyForce(Vector3 direction, float force)
-    {
-        foreach (var rigidbody in _rigidRagdolParts)
-        {
-            rigidbody.AddForce(direction * force, ForceMode.Impulse);
-        }
+        _isActive = false;
     }
 }

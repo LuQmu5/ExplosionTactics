@@ -459,10 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4d28cf85db41d40b58020c05dc4090, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 23487852035965768}
   _animator: {fileID: 8502425231960527789}
-  _hitSpeedMultiplier: 2
-  _idleSpeedMultiplier: 0.5
 --- !u!1 &839066973942599288
 GameObject:
   m_ObjectHideFlags: 0
@@ -3538,6 +3535,7 @@ GameObject:
   - component: {fileID: 6464850607780174173}
   - component: {fileID: 218678435647616796}
   - component: {fileID: 8901241358560038808}
+  - component: {fileID: 5991505665139445458}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3573,16 +3571,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3138c1541a9ec541be58c8e520c7da3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _view: {fileID: 8023895235059893954}
-  _ragdollController: {fileID: 7595618247383346859}
   _agent: {fileID: 758287685750176034}
+  _animator: {fileID: 8502425231960527789}
+  _view: {fileID: 8023895235059893954}
+  _ragdoll: {fileID: 7595618247383346859}
   _healthSystem: {fileID: 8901241358560038808}
+  _clickMarkerView: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
+  _deathHandler: {fileID: 5991505665139445458}
   _movementSpeed: 5
   _idleTimeToPatrol: 5
   _groundMask:
     serializedVersion: 2
     m_Bits: 64
-  _clickPointMarkerViewPrefab: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
   _jumpUpOffset: -1
   _jumpDownPeak: 2
 --- !u!195 &758287685750176034
@@ -3619,7 +3619,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee741ffa043882642a710e3abf399585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _root: {fileID: 8196030768817334700}
+  _ragdollBodies: []
+  _animator: {fileID: 8502425231960527789}
 --- !u!136 &6464850607780174173
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3683,6 +3684,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxHealth: 15
+--- !u!114 &5991505665139445458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231357079531139954}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e203a2082b6254d940f11f429ba5c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 8023895235059893954}
+  _ragdoll: {fileID: 7595618247383346859}
 --- !u!1 &8398477567558624175
 GameObject:
   m_ObjectHideFlags: 0

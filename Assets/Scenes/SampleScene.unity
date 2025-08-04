@@ -4348,6 +4348,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
+      propertyPath: _damage
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 2219406049271449522, guid: 7453d843f7f09dd4d94494fa4432256d, type: 3}
       propertyPath: _exlosionRange
       value: 20
       objectReference: {fileID: 0}
