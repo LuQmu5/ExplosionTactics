@@ -1,38 +1,40 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public class PlayerDeathHandler : MonoBehaviour
+public class PlayerDeathHandler : IDisposable
 {
-    [SerializeField] private PlayerView _view;
-    [SerializeField] private RagdollController _ragdoll;
-
+    private PlayerView _view;
+    private RagdollController _ragdoll;
     private HealthSystem _health;
     private PlayerMovement _mover;
+    private Transform _transform;
 
-    public void Init(HealthSystem health, PlayerMovement mover)
+    public PlayerDeathHandler(PlayerView view, RagdollController ragdoll, HealthSystem health, PlayerMovement mover, Transform transform)
     {
+        _view = view;
+        _ragdoll = ragdoll;
         _health = health;
         _mover = mover;
 
         _health.Died += OnDied;
+        _transform = transform;
     }
 
-    private void OnDestroy()
+    public void Dispose()
     {
-        if (_health != null)
-            _health.Died -= OnDied;
+        _health.Died -= OnDied;
     }
 
     private void OnDied(Vector3? forceOrigin, float force)
     {
         _view.Deactivate();
-
         _mover.Stop();
 
         Vector3 forceDirection = Vector3.up;
 
         if (forceOrigin.HasValue)
         {
-            Vector3 fromOrigin = (transform.position - forceOrigin.Value).normalized;
+            Vector3 fromOrigin = (_transform.position - forceOrigin.Value).normalized;
             Vector3 velocityDir = _mover.Velocity.normalized * 0.5f;
             forceDirection += fromOrigin + velocityDir;
         }

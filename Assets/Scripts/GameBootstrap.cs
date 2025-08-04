@@ -15,6 +15,7 @@ public class GameBootstrap : MonoBehaviour
     private void Awake()
     {
         PlayerController player = Instantiate(_playerPrefab, _playerSpawnPoint.position, Quaternion.identity);
+        player.Init();
         _camera.Target.TrackingTarget = player.transform;
 
         AudioHandler audioHandler = new AudioHandler(_audioMixer);

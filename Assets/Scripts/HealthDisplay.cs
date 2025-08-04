@@ -5,13 +5,15 @@ using UnityEngine.UI;
 public class HealthDisplay : MonoBehaviour
 {
     [SerializeField] private Transform _pivot;
-    [SerializeField] private HealthSystem _healthActor;
     [SerializeField] private Image _filledImage;
+
+    private HealthSystem _healthActor;
 
     private Vector3 _offset;
 
-    private void OnEnable()
+    public void Init(HealthSystem healthActor)
     {
+        _healthActor = healthActor;
         _offset = transform.position;
 
         _healthActor.HealthChanged += OnHealthChanged;
@@ -19,7 +21,7 @@ public class HealthDisplay : MonoBehaviour
     }
 
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         _healthActor.HealthChanged -= OnHealthChanged;
     }

@@ -3534,8 +3534,7 @@ GameObject:
   - component: {fileID: 7595618247383346859}
   - component: {fileID: 6464850607780174173}
   - component: {fileID: 218678435647616796}
-  - component: {fileID: 8901241358560038808}
-  - component: {fileID: 5991505665139445458}
+  - component: {fileID: 2492590026761187504}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -3572,12 +3571,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _agent: {fileID: 758287685750176034}
-  _animator: {fileID: 8502425231960527789}
   _view: {fileID: 8023895235059893954}
   _ragdoll: {fileID: 7595618247383346859}
-  _healthSystem: {fileID: 8901241358560038808}
   _clickMarkerView: {fileID: 8818577164051528187, guid: a2bdf8b59cccf464ea0769201e81b302, type: 3}
-  _deathHandler: {fileID: 5991505665139445458}
+  _health: {fileID: 2492590026761187504}
+  _healthDisplay: {fileID: 1665428684418789235}
   _movementSpeed: 5
   _idleTimeToPatrol: 5
   _groundMask:
@@ -3671,7 +3669,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8901241358560038808
+--- !u!114 &2492590026761187504
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3683,21 +3681,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28afeb5c7a6d23f45a43d86b61afaa55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxHealth: 15
---- !u!114 &5991505665139445458
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8231357079531139954}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0e203a2082b6254d940f11f429ba5c0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _view: {fileID: 8023895235059893954}
-  _ragdoll: {fileID: 7595618247383346859}
 --- !u!1 &8398477567558624175
 GameObject:
   m_ObjectHideFlags: 0
@@ -4334,7 +4317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _pivot: {fileID: 2851642489012152029}
-  _healthActor: {fileID: 8901241358560038808}
   _filledImage: {fileID: 3637344863465277604}
 --- !u!1 &9032270727718397642
 GameObject:

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using System;
 
-[RequireComponent(typeof(Collider))]
+
 public class HealthSystem : MonoBehaviour, IHealth
 {
-    [SerializeField] private float _maxHealth = 10;
-
+    private float _maxHealth = 10;
     public float MaxHealth => _maxHealth;
     public float CurrentHealth { get; private set; }
 
@@ -15,8 +14,9 @@ public class HealthSystem : MonoBehaviour, IHealth
 
     private bool _isDead;
 
-    private void Awake()
+    public void Init(float maxHealth)
     {
+        _maxHealth = maxHealth;
         CurrentHealth = _maxHealth;
         _isDead = false;
     }
